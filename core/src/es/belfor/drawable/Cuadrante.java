@@ -1,18 +1,11 @@
 package es.belfor.drawable;
 
 
-
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Group;
 
 
@@ -33,8 +26,8 @@ public class Cuadrante extends Group{
 	
 		this.n = n;
 		this.m = m;
-		this.ancho = ancho;
-		this.alto = alto;
+		this.ancho = ancho/n;
+		this.alto = alto/m;
 	}
 		
 	public boolean fueraDeRangoX(float x){
@@ -50,16 +43,16 @@ public class Cuadrante extends Group{
 	public void drawBg(){
 		bg.begin(ShapeType.Filled);
 		bg.setColor(Color.TEAL);
-		bg.rect(150, Gdx.graphics.getHeight() - alto * m , ancho * n,  alto * m); //Fondo de color Teal
+		bg.rect(this.getX(), Gdx.graphics.getHeight() - alto * m , ancho * n,  alto * m); //Fondo de color Teal
 
 		bg.end();
 		lines.begin(ShapeType.Filled);
 		
 		lines.setColor(Color.WHITE);
 		for (int i = 0; i < n; i++)
-			lines.rect(150 + (ancho * i), Gdx.graphics.getHeight() - alto * m, 1, alto*m ); //Lineas blancas
+			lines.rect(this.getX() + (ancho * i), Gdx.graphics.getHeight() - alto * m, 1, alto*m ); //Lineas blancas horizontales
 		for (int i = 0; i < m; i++)
-			lines.rect(150,   Gdx.graphics.getHeight() - (alto * i) ,  ancho * n, 1 ); //Lineas blancas
+			lines.rect(this.getX(),   Gdx.graphics.getHeight() - (alto * i) ,  ancho * n, 1 ); //Lineas blancas verticales
 		lines.end();
 		
 	}
@@ -79,7 +72,7 @@ public class Cuadrante extends Group{
 	}	
 	
 	public int getIndexX(float x){
-		return (int) ((x-150)/ancho);
+		return (int) ((x)/ancho);
 	}
 	
 	public int getIndexY(float y){
