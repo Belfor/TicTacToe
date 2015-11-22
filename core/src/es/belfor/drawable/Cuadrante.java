@@ -123,6 +123,12 @@ public class Cuadrante extends Group{
 		elements.addActor(new Elemento((ix * ancho) + getX(),Gdx.graphics.getHeight() -alto * (iy + 1), ancho, alto, elemento));
 		
 	}
+	
+	public void drawElemento(int ix, int iy, int elemento){
+	
+		elements.addActor(new Elemento((ix * ancho) + getX(),Gdx.graphics.getHeight() -alto * (iy + 1), ancho, alto, elemento));
+		
+	}
 
 	
 		

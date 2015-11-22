@@ -10,8 +10,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 
 public class Elemento extends Actor {
-	public static final int CIRCLE = 0;
-	public static final int X = 1;
+	public static final int CIRCLE = 1;
+	public static final int X = 2;
 
 	private Texture texture;
 	private ShapeRenderer s;

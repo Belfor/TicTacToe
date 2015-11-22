@@ -136,7 +136,7 @@ public class MiniMax {
 		return maximo;
 	}
 
-	public void mueve() {
+	public ArrayList<Integer> mueve() {
 
 		Nodo raiz = new Nodo();
 		// Expandimos los nodos
@@ -152,6 +152,28 @@ public class MiniMax {
 		Nodo n = Max(raiz.hijos);
 
 		mostrarNodo(n);
+		
+		return n.tablero;
+	}
+	
+	public ArrayList<Integer> mueve(ArrayList<Integer> tablero) {
+
+		Nodo raiz = new Nodo(tablero);
+		// Expandimos los nodos
+		raiz = expandirNodo(raiz, MAX);
+		for (int i = 0; i < raiz.hijos.size(); i++) {
+			raiz.hijos.set(i, expandirNodo(raiz.hijos.get(i), MIN));
+		}
+		// Calculamos solucion
+		for (int i = 0; i < raiz.hijos.size(); i++) {
+			raiz.hijos.get(i).evaluacion = Min(raiz.hijos.get(i).hijos).evaluacion;
+		}
+
+		Nodo n = Max(raiz.hijos);
+
+		mostrarNodo(n);
+		
+		return n.tablero;
 	}
 
 	private void mostrarNodo(Nodo n) {
