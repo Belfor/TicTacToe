@@ -9,6 +9,7 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import es.belfor.IA.MiniMax;
 import es.belfor.drawable.Cuadrante;
 import es.belfor.drawable.actor.Elemento;
 
@@ -17,6 +18,7 @@ public class TicTacToe extends ApplicationAdapter {
 	Texture img;
 	Stage stage;
 	Cuadrante cuadrante;
+	MiniMax minimax;
 
 	@Override
 	public void create() {
@@ -29,6 +31,14 @@ public class TicTacToe extends ApplicationAdapter {
 		stage.addActor(cuadrante);
 		
 		Gdx.input.setInputProcessor(stage);
+		
+	//PRUEBAS
+		minimax = new MiniMax();
+		minimax.mueve();
+		
+		
+		//*************************
+		
 
 		// Click del raton
 		stage.addListener(new InputListener() {
