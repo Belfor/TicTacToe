@@ -119,7 +119,6 @@ public class Cuadrante extends Group{
 	public void drawElemento(float x, float y, int elemento){
 		int ix = getIndexX(x);
 		int iy = getIndexY(y);
-		System.out.print(ix + " " + iy);
 		elements.addActor(new Elemento((ix * ancho) + getX(),Gdx.graphics.getHeight() -alto * (iy + 1), ancho, alto, elemento));
 		
 	}
@@ -128,6 +127,15 @@ public class Cuadrante extends Group{
 	
 		elements.addActor(new Elemento((ix * ancho) + getX(),Gdx.graphics.getHeight() -alto * (iy + 1), ancho, alto, elemento));
 		
+	}
+	/**
+	 * Resetea el cuadrante de elementos
+	 */
+	public void reset(){
+	/*	for (int i = 0; i < elements.getChildren().size ; i++)
+			elements.getChildren().get(i).remove();*/
+		elements.remove();
+		elements = new Group();
 	}
 
 	

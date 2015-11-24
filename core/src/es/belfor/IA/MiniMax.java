@@ -9,6 +9,12 @@ public class MiniMax {
 	private static final int gMAX = 100;
 	private static final int gMIN = -100;
 
+	/**
+	 * 
+	 * @author Belfor
+	 * Clase Nodo, necesaria para crear una estructura de Arbol para el algoritmo minimax
+	 *
+	 */
 	class Nodo {
 
 		ArrayList<Integer> tablero;
@@ -34,7 +40,13 @@ public class MiniMax {
 	public MiniMax() {
 
 	}
-
+	/**
+	 * Devuelve True si es posible hacer Columna con el valor
+	 * @param tablero
+	 * @param fila
+	 * @param valor
+	 * @return
+	 */
 	private boolean esPosibleColumna(ArrayList<Integer> tablero, int fila,
 			int valor) {
 		for (int i = 0; i < 3; i++) {
@@ -45,6 +57,13 @@ public class MiniMax {
 		return true;
 	}
 
+	/**
+	 * Devyekve True si es posible hacer Fila con el valor
+	 * @param tablero
+	 * @param columna
+	 * @param valor
+	 * @return
+	 */
 	private boolean esPosibleFila(ArrayList<Integer> tablero, int columna,
 			int valor) {
 		for (int i = 0; i < 3; i++) {
@@ -55,6 +74,12 @@ public class MiniMax {
 		return true;
 	}
 
+	/**
+	 * Devuelve True si puede crear la diagonal Izquierda con el valor
+	 * @param tablero
+	 * @param valor
+	 * @return
+	 */
 	private boolean esPosibleDiagonalIzquierda(ArrayList<Integer> tablero,
 			int valor) {
 		for (int i = 0; i < 3; i++) {
@@ -64,6 +89,12 @@ public class MiniMax {
 		return true;
 	}
 
+	/**
+	 * Devuelve True si puede crear la diagonal Derecha con el valor
+	 * @param tablero
+	 * @param valor
+	 * @return
+	 */
 	private boolean esPosibleDiagonalDerecha(ArrayList<Integer> tablero,
 			int valor) {
 		for (int i = 1; i < 4; i++) {
@@ -73,6 +104,11 @@ public class MiniMax {
 		return true;
 	}
 
+	/**
+	 * Devuelve la evaluacion heuristica
+	 * @param tablero
+	 * @return
+	 */
 	private int evaluacion(ArrayList<Integer> tablero) {
 		int m = 0;
 		int n = 0;
@@ -96,8 +132,51 @@ public class MiniMax {
 			n++;
 
 		return m - n;
+		
+	}
+	
+	private boolean esVictoria(Nodo n){
+		if (n.tablero.get(0) == n.tablero.get(1) && n.tablero.get(0) == n.tablero.get(2) && n.tablero.get(0)!= 0 ) return true;
+		if (n.tablero.get(3) == n.tablero.get(4) && n.tablero.get(3) == n.tablero.get(5) && n.tablero.get(3)!= 0 ) return true;
+		if (n.tablero.get(6) == n.tablero.get(7) && n.tablero.get(6) == n.tablero.get(8) && n.tablero.get(6)!= 0 ) return true;
+		
+		if (n.tablero.get(0) == n.tablero.get(3) && n.tablero.get(0) == n.tablero.get(6) && n.tablero.get(0)!= 0 ) return true;
+		if (n.tablero.get(1) == n.tablero.get(4) && n.tablero.get(1) == n.tablero.get(7) && n.tablero.get(1)!= 0 ) return true;
+		if (n.tablero.get(2) == n.tablero.get(5) && n.tablero.get(2) == n.tablero.get(8) && n.tablero.get(2)!= 0 ) return true;
+		
+		if (n.tablero.get(0) == n.tablero.get(4) && n.tablero.get(0) == n.tablero.get(8) && n.tablero.get(0)!= 0 ) return true;
+		if (n.tablero.get(2) == n.tablero.get(4) && n.tablero.get(2) == n.tablero.get(6) && n.tablero.get(2)!= 0 ) return true;
+		
+		
+		return false;
+	}
+	
+	private boolean esVictoria(Nodo n, int valor){
+		if (n.tablero.get(0) == n.tablero.get(1) && n.tablero.get(0) == n.tablero.get(2) && n.tablero.get(0) == valor ) return true;
+		if (n.tablero.get(3) == n.tablero.get(4) && n.tablero.get(3) == n.tablero.get(5) && n.tablero.get(3) == valor ) return true;
+		if (n.tablero.get(6) == n.tablero.get(7) && n.tablero.get(6) == n.tablero.get(8) && n.tablero.get(6) == valor ) return true;
+		
+		if (n.tablero.get(0) == n.tablero.get(3) && n.tablero.get(0) == n.tablero.get(6) && n.tablero.get(0) == valor ) return true;
+		if (n.tablero.get(1) == n.tablero.get(4) && n.tablero.get(1) == n.tablero.get(7) && n.tablero.get(1) == valor ) return true;
+		if (n.tablero.get(2) == n.tablero.get(5) && n.tablero.get(2) == n.tablero.get(8) && n.tablero.get(2) == valor ) return true;
+		
+		if (n.tablero.get(0) == n.tablero.get(4) && n.tablero.get(0) == n.tablero.get(8) && n.tablero.get(0) == valor ) return true;
+		if (n.tablero.get(2) == n.tablero.get(4) && n.tablero.get(2) == n.tablero.get(6) && n.tablero.get(2) == valor ) return true;
+		
+		
+		return false;
+	}
+	public boolean esVictoria(ArrayList<Integer> tablero){
+		return (esVictoria(new Nodo(tablero)));
 	}
 
+
+	/**
+	 * Expande los nodos hijos indicandole el valor
+	 * @param raiz
+	 * @param valor
+	 * @return
+	 */
 	private Nodo expandirNodo(Nodo raiz, int valor) {
 		Nodo n;
 		ArrayList<Integer> tablero = new ArrayList<Integer>(raiz.tablero);
@@ -107,13 +186,23 @@ public class MiniMax {
 				ArrayList<Integer> aux = new ArrayList<Integer>(tablero);
 				tablero.set(i, 0);
 				n = new Nodo(aux);
-				n.evaluacion = evaluacion(aux);
+				if (esVictoria(n,MAX))
+					n.evaluacion = gMAX;
+					else if (esVictoria(n,MIN))
+						n.evaluacion = gMIN;
+					else
+					n.evaluacion = evaluacion(aux);
 				raiz.hijos.add(n);
 			}
 		}
 		return raiz;
 	}
 
+	/**
+	 * Devuelve el minimo de los Nodos min
+	 * @param min
+	 * @return
+	 */
 	private Nodo Min(ArrayList<Nodo> min) {
 		Nodo minimo = min.get(0);
 
@@ -125,6 +214,11 @@ public class MiniMax {
 		return minimo;
 	}
 
+	/**
+	 * Devuelve el maximo de los nodos Max
+	 * @param max
+	 * @return
+	 */
 	private Nodo Max(ArrayList<Nodo> max) {
 		Nodo maximo = max.get(0);
 
@@ -135,43 +229,28 @@ public class MiniMax {
 		}
 		return maximo;
 	}
-
-	public ArrayList<Integer> mueve() {
-
-		Nodo raiz = new Nodo();
-		// Expandimos los nodos
-		raiz = expandirNodo(raiz, MAX);
-		for (int i = 0; i < raiz.hijos.size(); i++) {
-			raiz.hijos.set(i, expandirNodo(raiz.hijos.get(i), MIN));
-		}
-		// Calculamos solucion
-		for (int i = 0; i < raiz.hijos.size(); i++) {
-			raiz.hijos.get(i).evaluacion = Min(raiz.hijos.get(i).hijos).evaluacion;
-		}
-
-		Nodo n = Max(raiz.hijos);
-
-		mostrarNodo(n);
-		
-		return n.tablero;
-	}
 	
+	/**
+	 * Calcula a traves del algoritmo MiniMax la mejor Jugada
+	 * @param tablero
+	 * @return
+	 */
 	public ArrayList<Integer> mueve(ArrayList<Integer> tablero) {
 
 		Nodo raiz = new Nodo(tablero);
 		// Expandimos los nodos
 		raiz = expandirNodo(raiz, MAX);
-		for (int i = 0; i < raiz.hijos.size(); i++) {
-			raiz.hijos.set(i, expandirNodo(raiz.hijos.get(i), MIN));
-		}
+		for (int i = 0; i < raiz.hijos.size(); i++) 	
+			expandirNodo(raiz.hijos.get(i), MIN);
+		
 		// Calculamos solucion
 		for (int i = 0; i < raiz.hijos.size(); i++) {
-			raiz.hijos.get(i).evaluacion = Min(raiz.hijos.get(i).hijos).evaluacion;
+			if (raiz.hijos.get(i).hijos.size() != 0)
+				raiz.hijos.get(i).evaluacion = Min(raiz.hijos.get(i).hijos).evaluacion;
 		}
 
 		Nodo n = Max(raiz.hijos);
 
-		mostrarNodo(n);
 		
 		return n.tablero;
 	}
